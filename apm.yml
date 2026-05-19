@@ -1,0 +1,18 @@
+name: juspay-integrate
+version: 1.0.0
+description: Guided Juspay payment integration skill with live merchant MCP tools
+author: juspay
+includes: auto
+
+dependencies:
+  apm: []
+  mcp:
+    - name: juspay-mcp
+      registry: false
+      transport: http
+      url: https://mcp.portaldashboard10x.xyz/juspay-dashboard-stream
+
+    - name: juspay-docs-mcp
+      registry: false
+      transport: http
+      url: https://clamp-partridge-pupil.ngrok-free.dev/mcp
