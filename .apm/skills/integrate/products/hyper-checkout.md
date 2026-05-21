@@ -21,3 +21,27 @@ Pre-built, customizable payment page UI that handles the entire checkout experie
 
 ## Intent signals
 checkout UI, payment page, payment screen, pre-built UI, hosted payment, accept payments, mobile payments, Android payment, iOS payment, Flutter payment, React Native payment, web checkout, iframe checkout, customizable checkout
+
+## Test Scripts
+
+### Step 7B-1 — Session creation
+
+```bash
+bash .claude/skills/integrate/scripts/test/hyper-checkout/session.sh \
+  "$SESSION_ENDPOINT" "$TEST_ORDER_ID" "$TEST_AMOUNT" \
+  "$TEST_CUSTOMER_ID" "$TEST_CUSTOMER_EMAIL" "$TEST_CUSTOMER_PHONE" \
+  "$TEST_FIRST_NAME" "$TEST_LAST_NAME"
+```
+
+Verify: HTTP 200 AND response body contains `sdkPayload` AND DB row for `$TEST_ORDER_ID` exists with `payment_status = NEW`.
+
+Extract `juspay_order_id` from the response as `TEST_JUSPAY_ORDER_ID` for the webhook test.
+
+### Step 7B-2 — Order status
+
+```bash
+bash .claude/skills/integrate/scripts/test/hyper-checkout/order-status.sh \
+  "$ORDER_STATUS_ENDPOINT" "$TEST_ORDER_ID"
+```
+
+Verify: HTTP 200 AND response body contains a `status` field.
